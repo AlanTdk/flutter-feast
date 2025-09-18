@@ -130,18 +130,18 @@ ${orderData.comments ? `💬 *Comentarios:* ${orderData.comments}` : ''}
       />
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-6 sm:py-8 pb-20 sm:pb-8">
         
         {/* Welcome Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
+          className="text-center mb-6 sm:mb-8"
         >
-          <h2 className="text-3xl font-bold text-foreground mb-2">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             ¡Bienvenido a nuestro menú!
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-2">
             Descubre nuestros deliciosos platillos preparados con los mejores ingredientes. 
             Selecciona tus favoritos y realiza tu pedido fácilmente.
           </p>
@@ -152,7 +152,7 @@ ${orderData.comments ? `💬 *Comentarios:* ${orderData.comments}` : ''}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
         >
           <CategoryNav
             activeCategory={activeCategory}
@@ -163,7 +163,7 @@ ${orderData.comments ? `💬 *Comentarios:* ${orderData.comments}` : ''}
         {/* Products Grid */}
         <motion.div
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
         >
           <AnimatePresence mode="wait">
             {filteredProducts.map((product, index) => (

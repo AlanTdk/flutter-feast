@@ -130,10 +130,10 @@ ${formData.comments ? `💬 *Comentarios:* ${formData.comments}` : ''}
                       <Button
                         variant={orderType === 'dine-in' ? 'default' : 'outline'}
                         onClick={() => setOrderType('dine-in')}
-                        className="w-full justify-start h-auto p-4"
+                        className="w-full justify-start h-auto p-4 text-left"
                       >
-                        <MapPin className="mr-3" size={20} />
-                        <div className="text-left">
+                        <MapPin className="mr-3 flex-shrink-0" size={20} />
+                        <div>
                           <div className="font-medium">Para Comer Aquí</div>
                           <div className="text-sm text-muted-foreground">Consumir en el restaurante</div>
                         </div>
@@ -142,10 +142,10 @@ ${formData.comments ? `💬 *Comentarios:* ${formData.comments}` : ''}
                       <Button
                         variant={orderType === 'delivery' ? 'default' : 'outline'}
                         onClick={() => setOrderType('delivery')}
-                        className="w-full justify-start h-auto p-4"
+                        className="w-full justify-start h-auto p-4 text-left"
                       >
-                        <Home className="mr-3" size={20} />
-                        <div className="text-left">
+                        <Home className="mr-3 flex-shrink-0" size={20} />
+                        <div>
                           <div className="font-medium">Enviar a Domicilio</div>
                           <div className="text-sm text-muted-foreground">Entrega en tu dirección</div>
                         </div>
@@ -155,7 +155,7 @@ ${formData.comments ? `💬 *Comentarios:* ${formData.comments}` : ''}
                     <Button
                       onClick={() => setStep('customerInfo')}
                       disabled={!orderType}
-                      className="w-full btn-primary"
+                      className="w-full h-12 btn-primary text-base font-semibold"
                     >
                       Continuar
                     </Button>
@@ -235,11 +235,11 @@ ${formData.comments ? `💬 *Comentarios:* ${formData.comments}` : ''}
                       />
                     </div>
 
-                    <div className="flex gap-3">
-                      <Button variant="outline" onClick={() => setStep('orderType')} className="flex-1">
+                    <div className="flex gap-2 sm:gap-3">
+                      <Button variant="outline" onClick={() => setStep('orderType')} className="flex-1 h-11">
                         Atrás
                       </Button>
-                      <Button onClick={() => setStep('summary')} className="flex-1 btn-primary">
+                      <Button onClick={() => setStep('summary')} className="flex-1 h-11 btn-primary">
                         Continuar
                       </Button>
                     </div>
@@ -283,16 +283,17 @@ ${formData.comments ? `💬 *Comentarios:* ${formData.comments}` : ''}
                       </div>
                     </div>
 
-                    <div className="flex gap-3">
-                      <Button variant="outline" onClick={() => setStep('customerInfo')} className="flex-1">
+                    <div className="flex gap-2 sm:gap-3">
+                      <Button variant="outline" onClick={() => setStep('customerInfo')} className="flex-1 h-11">
                         Atrás
                       </Button>
                       <Button 
                         onClick={handleSubmit} 
-                        className="flex-1 btn-primary"
+                        className="flex-1 h-11 btn-primary"
                       >
                         <MessageCircle className="mr-2" size={16} />
-                        Enviar por WhatsApp
+                        <span className="hidden sm:inline">Enviar por WhatsApp</span>
+                        <span className="sm:hidden">Enviar</span>
                       </Button>
                     </div>
                   </motion.div>

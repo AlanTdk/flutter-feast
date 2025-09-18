@@ -60,103 +60,132 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onCheckout }: Cart
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 h-full w-full max-w-md bg-card border-l border-border shadow-2xl z-50 flex flex-col"
+              className="fixed right-0 top-0 h-full w-full max-w-sm sm:max-w-md bg-card border-l border-border shadow-2xl z-50 flex flex-col"
             >
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-border">
-                <h2 className="text-xl font-semibold">Tu Pedido</h2>
+              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border bg-card/95 backdrop-blur-sm">
+                <h2 className="text-lg sm:text-xl font-semibold text-foreground">Tu Pedido</h2>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setIsOpen(false)}
+                  className="h-8 w-8 p-0"
                 >
-                  <X size={20} />
+                  <X size={18} />
                 </Button>
               </div>
 
               {/* Cart Items */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6">
                 <AnimatePresence>
                   {items.length === 0 ? (
-                    <motion.p
+                    <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="text-center text-muted-foreground py-8"
+                      className="flex flex-col items-center justify-center py-12 text-center"
                     >
-                      Tu carrito está vacío
-                    </motion.p>
+                      <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+                        <ShoppingCart className="text-muted-foreground" size={24} />
+                      </div>
+                      <p className="text-muted-foreground">Tu carrito está vacío</p>
+                      <p className="text-sm text-muted-foreground mt-1">Agrega productos para continuar</p>
+                    </motion.div>
                   ) : (
-                    items.map((item) => (
-                      <motion.div
-                        key={item.id}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="flex gap-4 p-4 bg-muted/30 rounded-lg"
-                      >
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-16 h-16 object-cover rounded-lg"
-                        />
-                        <div className="flex-1">
-                          <h4 className="font-medium">{item.name}</h4>
-                          <p className="text-sm text-muted-foreground">
-                            ${item.price} c/u
-                          </p>
-                          <div className="flex items-center gap-2 mt-2">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))}
-                              className="h-8 w-8 p-0"
-                            >
-                              <Minus size={12} />
-                            </Button>
-                            <span className="w-8 text-center">{item.quantity}</span>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                              className="h-8 w-8 p-0"
-                            >
-                              <Plus size={12} />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => onRemoveItem(item.id)}
-                              className="h-8 w-8 p-0 text-destructive hover:text-destructive"
-                            >
-                              <Trash2 size={12} />
-                            </Button>
+                    <div className="space-y-3">
+                      {items.map((item) => (
+                        <motion.div
+                          key={item.id}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -20 }}
+                          className="bg-muted/20 rounded-xl p-3 border border-border/50"
+                        >
+                          <div className="flex gap-3">
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg flex-shrink-0"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-medium text-sm sm:text-base text-foreground truncate">
+                                {item.name}
+                              </h4>
+                              <p className="text-xs sm:text-sm text-muted-foreground">
+                                ${item.price} c/u
+                              </p>
+                              
+                              {/* Quantity Controls */}
+                              <div className="flex items-center justify-between mt-2">
+                                <div className="flex items-center gap-2">
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))}
+                                    className="h-7 w-7 p-0 rounded-full"
+                                  >
+                                    <Minus size={10} />
+                                  </Button>
+                                  <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                                    className="h-7 w-7 p-0 rounded-full"
+                                  >
+                                    <Plus size={10} />
+                                  </Button>
+                                </div>
+                                
+                                <div className="flex items-center gap-2">
+                                  <span className="font-semibold text-primary text-sm">
+                                    ${item.price * item.quantity}
+                                  </span>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => onRemoveItem(item.id)}
+                                    className="h-7 w-7 p-0 text-destructive hover:text-destructive hover:bg-destructive/10 rounded-full"
+                                  >
+                                    <Trash2 size={10} />
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="text-right">
-                          <p className="font-semibold">${item.price * item.quantity}</p>
-                        </div>
-                      </motion.div>
-                    ))
+                        </motion.div>
+                      ))}
+                    </div>
                   )}
                 </AnimatePresence>
               </div>
 
               {/* Footer */}
               {items.length > 0 && (
-                <div className="p-6 border-t border-border">
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-lg font-semibold">Total:</span>
-                    <span className="text-2xl font-bold text-primary">${total}</span>
+                <div className="p-4 sm:p-6 border-t border-border bg-card/95 backdrop-blur-sm">
+                  {/* Order Summary */}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex justify-between text-sm">
+                      <span>Productos ({itemCount})</span>
+                      <span>${total}</span>
+                    </div>
+                    <div className="flex justify-between items-center border-t pt-2">
+                      <span className="font-semibold text-base sm:text-lg">Total:</span>
+                      <span className="text-xl sm:text-2xl font-bold text-primary">${total}</span>
+                    </div>
                   </div>
-                  <Button
-                    onClick={() => {
-                      setIsOpen(false);
-                      onCheckout();
-                    }}
-                    className="w-full btn-primary"
-                  >
-                    Realizar Pedido
-                  </Button>
+                  
+                  <motion.div whileTap={{ scale: 0.98 }}>
+                    <Button
+                      onClick={() => {
+                        setIsOpen(false);
+                        onCheckout();
+                      }}
+                      className="w-full h-12 text-base font-semibold btn-primary"
+                    >
+                      <ShoppingCart className="mr-2" size={18} />
+                      Realizar Pedido
+                    </Button>
+                  </motion.div>
                 </div>
               )}
             </motion.div>
